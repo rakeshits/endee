@@ -15,79 +15,107 @@ export default function Navbar() {
   }, [])
 
   const links = [
-    { href: '/', label: 'Home' },
+    { href: '/',       label: 'Home'   },
     { href: '/search', label: 'Search' },
-    { href: '/#about', label: 'Docs' },
+    { href: '/about',  label: 'About'  },
+    { href: '/docs',   label: 'Docs'   },
+    { href: '/stats',  label: 'Stats'  },
   ]
 
   return (
-    <nav style={{
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: '0 32px', height: '56px',
-      borderBottom: '1px solid rgba(255,255,255,0.07)',
-      position: 'sticky', top: 0, zIndex: 100,
-      background: scrolled ? 'rgba(7,8,13,0.92)' : 'rgba(7,8,13,0.7)',
-      backdropFilter: 'blur(24px)',
-      transition: 'background 0.3s',
-    }}>
-      {/* Logo */}
-      <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '9px', textDecoration: 'none' }}>
-        <div style={{
-          width: '28px', height: '28px', borderRadius: '7px',
-          background: '#e8ff47', display: 'grid', placeItems: 'center',
-        }}>
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="5.5" cy="5.5" r="3.5" stroke="#07080d" strokeWidth="1.4"/>
-            <line x1="8.2" y1="8.2" x2="13" y2="13" stroke="#07080d" strokeWidth="1.6" strokeLinecap="round"/>
-          </svg>
+    <>
+      <nav style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: '0 32px', height: '58px',
+        background: scrolled ? 'rgba(5,5,8,0.92)' : 'rgba(5,5,8,0.6)',
+        backdropFilter: 'blur(24px)',
+        borderBottom: `1px solid ${scrolled ? 'rgba(124,109,255,0.15)' : 'rgba(255,255,255,0.06)'}`,
+        position: 'sticky', top: 0, zIndex: 100,
+        transition: 'all 0.3s',
+      }}>
+
+        {/* Logo */}
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <div style={{
+            width: '32px', height: '32px', borderRadius: '10px',
+            background: 'linear-gradient(135deg, #7c6dff, #ff6b9d)',
+            display: 'grid', placeItems: 'center', fontSize: '14px',
+            boxShadow: '0 4px 20px rgba(124,109,255,0.4)',
+            animation: 'glow 3s ease-in-out infinite',
+          }}>✦</div>
+          <span style={{
+            fontFamily: 'var(--font-display)', fontSize: '15px', fontWeight: 700,
+            background: 'linear-gradient(135deg, var(--p2), var(--pk))',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>semantic.ai</span>
+        </Link>
+
+        {/* Links */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
+          {links.map(l => (
+            <Link key={l.href} href={l.href} style={{
+              padding: '6px 14px', borderRadius: '8px',
+              fontSize: '13px', fontWeight: 500,
+              color: pathname === l.href ? 'var(--tx)' : 'var(--tx3)',
+              background: pathname === l.href ? 'rgba(124,109,255,0.15)' : 'transparent',
+              textDecoration: 'none', transition: 'all 0.2s',
+              fontFamily: 'var(--font-body)',
+            }}
+            onMouseEnter={e => {
+              if (pathname !== l.href) {
+                e.currentTarget.style.color = 'var(--tx2)'
+                e.currentTarget.style.background = 'var(--b1)'
+              }
+            }}
+            onMouseLeave={e => {
+              if (pathname !== l.href) {
+                e.currentTarget.style.color = 'var(--tx3)'
+                e.currentTarget.style.background = 'transparent'
+              }
+            }}
+            >
+              {l.label}
+            </Link>
+          ))}
         </div>
-        <span style={{ fontFamily: 'var(--font-display)', fontSize: '14px', fontWeight: 800, color: '#ecedf5', letterSpacing: '-0.3px' }}>
-          semantic<span style={{ color: '#e8ff47' }}>.</span>ai
-        </span>
-      </Link>
 
-      {/* Center links */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1px' }}>
-        {links.map(l => (
-          <Link key={l.href} href={l.href} style={{
-            padding: '6px 12px', borderRadius: '7px',
-            fontSize: '13px', fontWeight: 500,
-            color: pathname === l.href ? '#ecedf5' : 'rgba(236,237,245,0.35)',
-            background: pathname === l.href ? 'rgba(255,255,255,0.07)' : 'transparent',
-            textDecoration: 'none', transition: 'all 0.15s',
-            fontFamily: 'var(--font-body)',
-          }}
-          onMouseEnter={e => { if (pathname !== l.href) { e.target.style.color = 'rgba(236,237,245,0.7)'; e.target.style.background = 'rgba(255,255,255,0.04)'; }}}
-          onMouseLeave={e => { if (pathname !== l.href) { e.target.style.color = 'rgba(236,237,245,0.35)'; e.target.style.background = 'transparent'; }}}
-          >
-            {l.label}
-          </Link>
-        ))}
-      </div>
-
-      {/* Right */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <span style={{
-          fontFamily: 'var(--font-mono)', fontSize: '10px',
-          color: 'rgba(236,237,245,0.28)', background: '#12141e',
-          border: '1px solid rgba(255,255,255,0.07)',
-          padding: '3px 8px', borderRadius: '5px', letterSpacing: '0.04em',
-        }}>v2.0</span>
+        {/* CTA */}
         <Link href="/search">
           <button style={{
-            height: '32px', padding: '0 16px', borderRadius: '8px',
-            background: '#e8ff47', color: '#07080d', border: 'none',
-            fontSize: '13px', fontWeight: 700, cursor: 'pointer',
-            fontFamily: 'var(--font-display)', letterSpacing: '-0.2px',
-            transition: 'all 0.15s',
+            height: '34px', padding: '0 18px', borderRadius: '9px',
+            background: 'linear-gradient(135deg, var(--p), var(--pk))',
+            color: 'white', border: 'none',
+            fontSize: '13px', fontWeight: 600, cursor: 'pointer',
+            fontFamily: 'var(--font-body)', transition: 'all 0.2s',
+            boxShadow: '0 4px 16px rgba(124,109,255,0.35)',
           }}
-          onMouseEnter={e => { e.target.style.background = '#f0ff6e'; e.target.style.transform = 'translateY(-1px)'; }}
-          onMouseLeave={e => { e.target.style.background = '#e8ff47'; e.target.style.transform = 'translateY(0)'; }}
+          onMouseEnter={e => {
+            e.currentTarget.style.transform = 'translateY(-1px)'
+            e.currentTarget.style.boxShadow = '0 8px 24px rgba(124,109,255,0.5)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.transform = 'translateY(0)'
+            e.currentTarget.style.boxShadow = '0 4px 16px rgba(124,109,255,0.35)'
+          }}
           >
-            Try it free
+            Try it free →
           </button>
         </Link>
+      </nav>
+
+      {/* Toast notification */}
+      <div id="global-toast" style={{
+        position: 'fixed', bottom: '24px', right: '24px',
+        background: 'var(--s2)', border: '1px solid rgba(0,212,170,0.3)',
+        borderRadius: '12px', padding: '12px 20px',
+        fontSize: '13px', color: 'var(--g)',
+        fontFamily: 'var(--font-mono)', zIndex: 9999,
+        boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+        display: 'none', animation: 'slideUp 0.3s ease',
+      }}>
+        ✓ Link copied to clipboard!
       </div>
-    </nav>
+    </>
   )
 }
