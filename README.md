@@ -89,5 +89,5 @@ components/
 
 ## 🔗 Endee Links
 - ⭐ Starred: [github.com/endee-io/endee](https://github.com/endee-io/endee)
-- 🍴 Forked: [github.com/YOUR_USERNAME/endee](https://github.com/YOUR_USERNAME/endee)
+- - 🍴 Forked: [github.com/rakeshits/endee](https://github.com/rakeshits/endee)
 - 📖 Docs: [docs.endee.io](https://docs.endee.io)
