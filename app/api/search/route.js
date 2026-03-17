@@ -36,7 +36,6 @@ async function ensureIndex() {
     const { Endee } = await import('endee')
     const client = new Endee()
     client.setBaseUrl('http://localhost:8080/api/v1')
-
     try {
       await client.createIndex({
         name: 'semantic_search',
@@ -44,9 +43,7 @@ async function ensureIndex() {
         spaceType: 'cosine',
       })
     } catch {}
-
     const index = await client.getIndex('semantic_search')
-
     await index.upsert(
       KNOWLEDGE_BASE.map(doc => ({
         id: doc.id,
@@ -59,7 +56,6 @@ async function ensureIndex() {
         },
       }))
     )
-
     initialized = true
     return true
   } catch (err) {
@@ -116,6 +112,12 @@ export async function GET(request) {
         totalFound: results.length,
         searchTime: `${(Math.random() * 30 + 10).toFixed(0)}ms`,
         engine: 'Endee Vector Database',
+        endee: {
+          index: 'semantic_search',
+          dimensions: 128,
+          spaceType: 'cosine',
+          host: 'localhost:8080',
+        },
       })
     }
   } catch (err) {
@@ -124,7 +126,7 @@ export async function GET(request) {
 
   // Fallback scoring
   const results = KNOWLEDGE_BASE
-    .map(doc => ({ ...doc, score: fallbackScore(query, doc) }))
+    .map(doc => ({ ...doc, score: fallbackScore(query, doc), source: 'fallback' }))
     .filter(r => r.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, 3)
@@ -133,7 +135,7 @@ export async function GET(request) {
     query,
     results: results.length
       ? results
-      : KNOWLEDGE_BASE.slice(0, 3).map(d => ({ ...d, score: 0.3 })),
+      : KNOWLEDGE_BASE.slice(0, 3).map(d => ({ ...d, score: 0.3, source: 'fallback' })),
     totalFound: 3,
     searchTime: `${(Math.random() * 20 + 15).toFixed(0)}ms`,
     engine: 'Fallback Scoring Engine',
