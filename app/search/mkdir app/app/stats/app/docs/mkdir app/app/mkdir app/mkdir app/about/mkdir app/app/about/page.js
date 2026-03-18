@@ -1,0 +1,196 @@
+'use client'
+
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import Link from 'next/link'
+
+const TEAM = [
+  { emoji: '👨‍💻', name: 'Rakesh Balati',  role: 'Full Stack Developer', bio: 'Built the semantic search engine and integrated Endee vector database.' },
+  { emoji: '🗄️', name: 'Endee Engine',    role: 'Vector Database',      bio: 'High-performance vector DB handling cosine similarity search at scale.' },
+  { emoji: '⚡',  name: 'Next.js 14',      role: 'Frontend Framework',   bio: 'App Router, API Routes, and server components powering the full stack.' },
+]
+
+const TIMELINE = [
+  { date: 'Day 1', title: 'Project kickoff',     desc: 'Forked Endee repo, set up Next.js project structure and Tailwind CSS.'    },
+  { date: 'Day 1', title: 'Search engine built', desc: 'Implemented semantic scoring with 15 knowledge documents.'                },
+  { date: 'Day 2', title: 'Endee integration',   desc: 'Connected Endee vector DB via Docker and npm SDK for real vector search.' },
+  { date: 'Day 2', title: 'UI/UX polish',        desc: 'Added modern dark theme, animations, typing effect and search history.'   },
+  { date: 'Day 2', title: 'Submitted',           desc: 'Pushed to GitHub and submitted to Tap Academy evaluation form.'           },
+]
+
+const TECH = [
+  { icon: '⚡',  name: 'Next.js 14',      desc: 'App Router + API Routes'      },
+  { icon: '🎨',  name: 'Tailwind CSS',    desc: 'Utility-first styling'         },
+  { icon: '🗄️', name: 'Endee Vector DB', desc: 'Cosine similarity search'      },
+  { icon: '🐳',  name: 'Docker',          desc: 'Endee server containerization' },
+  { icon: '📦',  name: 'endee npm SDK',   desc: 'Official TypeScript SDK'       },
+  { icon: '🔤',  name: 'Space Grotesk',   desc: 'Display typography'            },
+]
+
+export default function AboutPage() {
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--bg)' }}>
+      <Navbar />
+      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', overflow: 'hidden', zIndex: 0 }}>
+        <div className="orb" style={{ width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(124,109,255,0.08) 0%, transparent 70%)', top: '-100px', right: '-100px', animationDuration: '10s' }} />
+        <div className="grid-bg" />
+      </div>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', margin: '0 auto', padding: '60px 32px 80px' }}>
+
+        {/* Header */}
+        <div style={{ marginBottom: '56px', maxWidth: '600px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+            <div style={{ width: '24px', height: '1px', background: 'linear-gradient(90deg, var(--p), var(--pk))' }} />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--p)', letterSpacing: '0.15em' }}>ABOUT THIS PROJECT</span>
+          </div>
+          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px,5vw,52px)', fontWeight: 700, color: 'var(--tx)', letterSpacing: '-1.5px', lineHeight: 1.05, marginBottom: '20px' }}>
+            Built for the <span style={{ background: 'linear-gradient(135deg,var(--p),var(--pk))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Endee.io</span> evaluation
+          </h1>
+          <p style={{ fontSize: '15px', color: 'var(--tx2)', lineHeight: 1.75 }}>
+            This project was built as part of the Tap Academy × Endee.io assignment. The goal was to demonstrate a practical AI/ML use case using Endee as the vector database — semantic search was chosen as the use case.
+          </p>
+        </div>
+
+        {/* Comparison */}
+        <section style={{ marginBottom: '56px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '24px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--tx3)' }}>01</span>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', fontWeight: 700, color: 'var(--tx)', letterSpacing: '-0.5px' }}>What is semantic search?</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <div style={{ background: 'var(--s1)', border: '1px solid var(--b1)', borderRadius: '20px', padding: '24px' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--tx3)', marginBottom: '12px', letterSpacing: '0.1em' }}>TRADITIONAL SEARCH</div>
+              <p style={{ fontSize: '13px', color: 'var(--tx2)', lineHeight: 1.7, marginBottom: '14px' }}>
+                Matches documents containing <strong style={{ color: 'var(--tx)' }}>exact words</strong> from your query. Different vocabulary = no results.
+              </p>
+              <div style={{ padding: '10px 14px', background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.15)', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'rgba(248,113,113,0.8)' }}>
+                Query: "how machines think"<br />✗ Misses: "neural networks", "AI"
+              </div>
+            </div>
+            <div style={{ background: 'var(--s1)', border: '1px solid rgba(124,109,255,0.25)', borderRadius: '20px', padding: '24px' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--p)', marginBottom: '12px', letterSpacing: '0.1em' }}>SEMANTIC SEARCH ✦</div>
+              <p style={{ fontSize: '13px', color: 'var(--tx2)', lineHeight: 1.7, marginBottom: '14px' }}>
+                Understands <strong style={{ color: 'var(--tx)' }}>meaning and intent</strong>. Finds related docs even without matching vocabulary.
+              </p>
+              <div style={{ padding: '10px 14px', background: 'rgba(0,212,170,0.05)', border: '1px solid rgba(0,212,170,0.15)', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'rgba(0,212,170,0.8)' }}>
+                Query: "how machines think"<br />✓ Finds: neural networks, AI, ML
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Endee usage */}
+        <section style={{ marginBottom: '56px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '24px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--tx3)' }}>02</span>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', fontWeight: 700, color: 'var(--tx)', letterSpacing: '-0.5px' }}>How Endee powers this</h2>
+          </div>
+          <div style={{ background: 'var(--s1)', border: '1px solid var(--b1)', borderRadius: '20px', padding: '28px', marginBottom: '12px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px' }}>
+              {[
+                { label: 'INDEX',      value: 'semantic_search', desc: 'Endee index name'        },
+                { label: 'DIMENSIONS', value: '128',             desc: 'Vector dimensions'       },
+                { label: 'SPACE TYPE', value: 'cosine',          desc: 'Similarity metric'       },
+                { label: 'DOCUMENTS',  value: '15',              desc: 'Knowledge nodes stored'  },
+                { label: 'SDK',        value: 'endee npm',       desc: 'Official TypeScript SDK' },
+                { label: 'QUERY',      value: 'topK: 3',         desc: 'Results per search'      },
+              ].map(item => (
+                <div key={item.label}>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--tx3)', letterSpacing: '0.1em', marginBottom: '4px' }}>{item.label}</div>
+                  <div style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', fontWeight: 700, color: 'var(--p2)', marginBottom: '2px' }}>{item.value}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--tx3)' }}>{item.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <pre style={{ background: 'var(--s2)', border: '1px solid var(--b1)', borderRadius: '10px', padding: '16px 20px', fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--tx2)', overflowX: 'auto', lineHeight: 1.7, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{`const client = new Endee()
+client.setBaseUrl('http://localhost:8080/api/v1')
+await client.createIndex({ name: 'semantic_search', dimension: 128, spaceType: 'cosine' })
+await index.upsert(docs.map(doc => ({ id: doc.id, vector: textToVector(doc.title + doc.snippet), meta: doc })))
+const results = await index.query({ vector: textToVector(userQuery), topK: 3 })`}</pre>
+        </section>
+
+        {/* Tech stack */}
+        <section style={{ marginBottom: '56px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '24px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--tx3)' }}>03</span>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', fontWeight: 700, color: 'var(--tx)', letterSpacing: '-0.5px' }}>Tech stack</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '10px' }}>
+            {TECH.map(t => (
+              <div key={t.name} style={{ background: 'var(--s1)', border: '1px solid var(--b1)', borderRadius: '14px', padding: '18px', display: 'flex', alignItems: 'center', gap: '12px', transition: 'all 0.3s' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(124,109,255,0.3)'; e.currentTarget.style.transform = 'translateY(-2px)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--b1)'; e.currentTarget.style.transform = 'translateY(0)' }}
+              >
+                <span style={{ fontSize: '20px', flexShrink: 0 }}>{t.icon}</span>
+                <div>
+                  <div style={{ fontFamily: 'var(--font-display)', fontSize: '13px', fontWeight: 600, color: 'var(--tx)', marginBottom: '2px' }}>{t.name}</div>
+                  <div style={{ fontSize: '11px', color: 'var(--tx3)' }}>{t.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Timeline */}
+        <section style={{ marginBottom: '56px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '24px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--tx3)' }}>04</span>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', fontWeight: 700, color: 'var(--tx)', letterSpacing: '-0.5px' }}>Build timeline</h2>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {TIMELINE.map((item, i) => (
+              <div key={i} style={{ display: 'flex', gap: '20px', paddingBottom: '24px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '10px', height: '10px', borderRadius: '50%', background: 'var(--p)', boxShadow: '0 0 12px rgba(124,109,255,0.6)', marginTop: '3px' }} />
+                  {i < TIMELINE.length - 1 && <div style={{ width: '1px', flex: 1, background: 'var(--b1)', marginTop: '6px' }} />}
+                </div>
+                <div style={{ paddingBottom: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--p)', background: 'rgba(124,109,255,0.1)', border: '1px solid rgba(124,109,255,0.2)', padding: '1px 8px', borderRadius: '4px' }}>{item.date}</span>
+                    <span style={{ fontFamily: 'var(--font-display)', fontSize: '13px', fontWeight: 600, color: 'var(--tx)' }}>{item.title}</span>
+                  </div>
+                  <p style={{ fontSize: '12px', color: 'var(--tx3)', lineHeight: 1.6 }}>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Team */}
+        <section style={{ marginBottom: '56px' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: '16px', marginBottom: '24px' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--tx3)' }}>05</span>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', fontWeight: 700, color: 'var(--tx)', letterSpacing: '-0.5px' }}>Team & tools</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px' }}>
+            {TEAM.map(t => (
+              <div key={t.name} style={{ background: 'var(--s1)', border: '1px solid var(--b1)', borderRadius: '20px', padding: '28px', textAlign: 'center', transition: 'all 0.3s' }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(124,109,255,0.3)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = '0 20px 48px rgba(0,0,0,0.4)' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--b1)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
+              >
+                <div style={{ width: '60px', height: '60px', borderRadius: '50%', background: 'rgba(124,109,255,0.1)', border: '2px solid rgba(124,109,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', margin: '0 auto 12px' }}>{t.emoji}</div>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: '14px', fontWeight: 700, color: 'var(--tx)', marginBottom: '4px' }}>{t.name}</div>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--p)', marginBottom: '8px', letterSpacing: '0.05em' }}>{t.role}</div>
+                <p style={{ fontSize: '12px', color: 'var(--tx3)', lineHeight: 1.6 }}>{t.bio}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* CTA */}
+        <div style={{ background: 'var(--s1)', border: '1px solid var(--b1)', borderRadius: '20px', padding: '36px', textAlign: 'center' }}>
+          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '20px', fontWeight: 700, color: 'var(--tx)', letterSpacing: '-0.5px', marginBottom: '8px' }}>Try it yourself</h3>
+          <p style={{ fontSize: '13px', color: 'var(--tx3)', marginBottom: '20px' }}>Experience semantic search powered by Endee vector database</p>
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link href="/search"><button className="btn-primary">Start searching →</button></Link>
+            <Link href="/docs"><button className="btn-ghost">View API docs</button></Link>
+            <Link href="/stats"><button className="btn-ghost">View stats</button></Link>
+          </div>
+        </div>
+
+      </div>
+      <Footer />
+    </div>
+  )
+}
